@@ -18,7 +18,7 @@ END
       postamble = <<END.gsub("\n", ";")
 #{precompiled_method_return_value}
 ensure
-@haml_buffer = @haml_buffer.upper
+@haml_buffer = @haml_buffer.upper if @haml_buffer
 end
 END
       preamble + locals_code(local_names) + precompiled + postamble
@@ -156,8 +156,8 @@ END
 
         if value && !parse
           concat_merged_text("#{value}</#{t[:name]}>#{t[:nuke_outer_whitespace] ? "" : "\n"}")
-        else
-          @to_merge << [:text, '', 1] unless t[:nuke_inner_whitespace]
+        elsif !t[:nuke_inner_whitespace] && !t[:self_closing]
+          @to_merge << [:text, '', 1]
         end
 
         @dont_indent_next_line = dont_indent_next_line
@@ -372,7 +372,7 @@ END
           if escape_attrs == :once
             Haml::Helpers.escape_once(value.to_s)
           elsif escape_attrs
-            CGI.escapeHTML(value.to_s)
+            Haml::Helpers.html_escape(value.to_s)
           else
             value.to_s
           end

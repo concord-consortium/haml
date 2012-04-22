@@ -6,6 +6,18 @@
 * Always use :xhtml format when the mime_type of the rendered template is 'text/xml'.
   (thanks to [Stephen Bannasch](https://github.com/stepheneb)).
 
+* Use character code entities for attribute value replacements instead of named/keyword entities.
+
+## 3.1.5 (Unreleased)
+
+* Respect Rails' `html_safe` flag when escaping attribute values
+  (thanks to [Gerad Suyderhoud](https://github.com/gerad)).
+
+## 3.1.4
+
+* Fix the use of `FormBuilder#block` with a label in Haml.
+* Fix indentation after a self-closing tag with dynamic attributes.
+
 ## 3.1.3
 
 * Stop partial layouts from being displayed twice.
@@ -20,8 +32,6 @@
 * Fix html2haml.
 
 * Fix an issue where destructive modification was sometimes performed on Rails SafeBuffers.
-
-* Use character code entities for attribute value replacements instead of named/keyword entities.
 
 ## 3.1.1
 
